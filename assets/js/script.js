@@ -91,6 +91,10 @@ var datos = [
     }
 ]
 
+var arregloCarritoCompra = [
+
+];
+
 function renderTarjetas() {
 
     var contenidoPrincipal = document.querySelector('#contenidoPrincipal');
@@ -129,11 +133,22 @@ function renderTarjetas() {
         listaItemTres.innerHTML = producto.stock;
         btnAgregar.setAttribute('class', 'btn btn-primary mb-3');
         btnAgregar.innerHTML = 'Agregar al Carrito';
+        btnAgregar.addEventListener('click', function () {
+            arregloCarritoCompra.push(producto);
+            if (producto.stock > 0) {
+                producto.stock = producto.stock - 1;
+                listaItemTres.innerHTML = producto.stock;
+                console.log(arregloCarritoCompra);
+            } else {
+                alert(`lo sentimos el producto ${producto.nombre} esta fuera de stock`)
+            }
+
+        })
         contenedorCuerpoTarjeta.append(tituloTarjeta,parrafoTarjeta);
         listaTarjeta.append(listaItemUno, listaItemDos, listaItemTres);
-        contenedorTarjeta.append(imagen, contenedorCuerpoTarjeta, listaTarjeta);
+        contenedorTarjeta.append(imagen, contenedorCuerpoTarjeta, listaTarjeta, btnAgregar);
         contenedorPrincipal.append(contenedorTarjeta);
-        contenedorTarjeta.append(btnAgregar);
+
     });
     contenidoPrincipal.append(contenedorPrincipal);
 }
